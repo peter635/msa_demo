@@ -16,16 +16,14 @@
       // Extract the revenue value
       const revenue = getQueryParam('revenue');
   
-  
       // Display the revenue value in the page (if needed)
       document.addEventListener('DOMContentLoaded', function() {
         const message = revenue == 0
           ? 'ご予約ありがとうございます'
-          : `${revenue}円 ご購入ありがとうございます (NewURL)`;
+          : `${revenue}円 ご購入ありがとうございます (New URL)`;
         document.getElementById('purchase-confirmation').innerText = message;
       });
     </script>
-
 
     <!-- Google Tag Manager -->
     <script>
@@ -44,20 +42,35 @@
   </head>
 
   <body>
-    <div id="purchase-confirmation" class="container">
-      <h1></h1>
+    <div class="container">
+      <h1 id="purchase-confirmation" class="large-text"></h1>
+
+      <!-- Return Button -->
+      <div class="button-container">
+        <button id="backToTopButton" class="red-button">トップページに戻る</button>
+      </div>
     </div>
 
+    <script>
+      // Get the button element
+      const backToTopButton = document.getElementById("backToTopButton");
+
+      // Add click event listener to redirect to the homepage
+      backToTopButton.addEventListener("click", function () {
+        // Redirect to the homepage (assuming your main page is 'mainpage.html')
+        window.location.href = "mainpage.html"; // Adjust this path if necessary
+      });
+    </script>
 
     <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
+    <noscript>
+      <iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-NC6J7J52"
         height="0"
         width="0"
         style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
+      ></iframe>
+    </noscript>
     <!-- End Google Tag Manager (noscript) -->
   </body>
 </html>

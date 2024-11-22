@@ -4,7 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thanks - Normal</title>
+
+    <!-- Link to external CSS file -->
     <link rel="stylesheet" href="styles.css" />
+
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
@@ -23,16 +26,32 @@
   <body>
     <div class="container">
       <h1>ご予約ありがとうございます (New URL)</h1>
+
+      <div id="thankYou">
+        <button id="backToTopButton" class="red-button">トップページに戻る</button>
+      </div>
     </div>
+
+    <script>
+      // Get the button element
+      const backToTopButton = document.getElementById("backToTopButton");
+
+      // Add click event listener to redirect to the homepage
+      backToTopButton.addEventListener("click", function () {
+        // Redirect to the homepage (assuming your main page is 'mainpage.html')
+        window.location.href = "mainpage.html"; // Adjust this path if necessary
+      });
+    </script>
+
     <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
+    <noscript>
+      <iframe
         src="https://www.googletagmanager.com/ns.html?id=GTM-NC6J7J52"
         height="0"
         width="0"
         style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
+      ></iframe>
+    </noscript>
     <!-- End Google Tag Manager (noscript) -->
   </body>
 </html>

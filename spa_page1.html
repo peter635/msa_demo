@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SPA Page</title>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NC6J7J52");
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #d1d1d1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 50px;
+      }
+      .button {
+        display: block;
+        width: 200px;
+        padding: 10px;
+        margin: 20px 0;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        color: white;
+      }
+      .button-red {
+        background-color: red;
+      }
+      .button-blue {
+        background-color: blue;
+      }
+      .button-yellow {
+        background-color: yellow;
+        color: black;
+      }
+      .text {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    </style>
+    <script>
+       function sendGTMEvent(eventName, additionalData = {}) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: eventName,
+          ...additionalData,
+        });
+        console.log(`GTM Event Sent: ${eventName}`, additionalData);
+      }
+
+      async function sendextensionGTMEvent(eventName, additionalData = {}) {
+        // Hash the email and phone
+        const hashedEmail = await hashValue(additionalData.email);
+        const hashedPhone = await hashValue(additionalData.phone);
+
+        // Prepare data with hashed email and phone, clear out the original fields if hash is empty
+        const dataToSend = {
+          ...additionalData,
+          email: hashedEmail ? hashedEmail : "", // Replace email with hashed value or clear it
+          phone: hashedPhone ? hashedPhone : "", // Replace phone with hashed value or clear it
+        };
+
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: eventName,
+          ...dataToSend,
+        });
+        console.log(`GTM Event Sent: ${eventName}`, dataToSend);
+      }
+
+      function handleRedClick() {
+        sendGTMEvent("spa_drive", {
+          buttonColor: "red",
+          action: "予約",
+        });
+        showMessage("ご予約ありがとうございます", "red");
+      }
+
+      function handleBlueClick() {
+        sendGTMEvent("spa_purchase", {
+          buttonColor: "blue",
+          action: "purchase",
+          lable: "cloth",
+          category: "shopping",
+          price: 2990,
+        });
+        showMessage("2990円 Tシャツ ご購入ありがとうございます", "blue");
+      }
+
+      function handleYellowClick() {
+        sendGTMEvent("spa_purchase", {
+          buttonColor: "yellow",
+          action: "purchase",
+          lable: "cloth",
+          category: "shopping",
+          price: 7990,
+        });
+
+        sendextensionGTMEvent("sendExtensionData", {
+          email: "user@customer.com",
+          phone: "07012345678",
+        });
+
+        showMessage(
+          "7990円 ジーンズ ご購入ありがとうございます (+拡張データ)",
+          "yellow"
+        );
+      }
+
+      function showMessage(message, color) {
+        const existingMessage = document.querySelector(".text");
+        if (existingMessage) existingMessage.remove();
+
+        const text = document.createElement("div");
+        text.classList.add("text");
+        text.style.color = color;
+        text.textContent = message;
+        document.body.appendChild(text);
+      }
+
+      // Function to convert ArrayBuffer to hex string
+      function arrayBufferToHex(buffer) {
+        return Array.from(new Uint8Array(buffer))
+          .map((b) => b.toString(16).padStart(2, "0"))
+          .join("");
+      }
+
+      // Function to hash a string using SHA-256
+      async function hashValue(value) {
+        // Return empty string if the input value is null or empty
+        if (!value) {
+          return "";
+        }
+
+        const encoder = new TextEncoder();
+        const data = encoder.encode(value);
+        const hash = await crypto.subtle.digest("SHA-256", data);
+        return arrayBufferToHex(hash);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>変数収益を計測しない場合​</h1>
+    <button
+      id="drive-confirmation"
+      class="button button-red"
+      onclick="handleRedClick()"
+    >
+      車の試乗をご予約
+    </button>
+
+    <h1>変数収益を計測する場合​</h1>
+    <button
+      id="purchase-confirmation"
+      class="button button-blue"
+      onclick="handleBlueClick()"
+    >
+      2990円のTシャツをご購入
+    </button>
+
+    <button
+      id="purchase-confirmation-spa-jeans"
+      class="button button-yellow"
+      onclick="handleYellowClick()"
+    >
+      7990円のジーンズをご購入 (User Info)
+    </button>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NC6J7J52"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  </body>
+</html>

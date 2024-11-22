@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conversion Page Test</title>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NC6J7J52");
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <style>
+      /* ページの高さが少ない場合でも、ボタンを常にページの一番下に表示する */
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* コンテンツは中央に配置される */
+      div {
+        flex-grow: 1;
+        text-align: center;
+        padding: 20px;
+      }
+
+      /* ボタンをページの下部に固定 */
+      button#conversionButton {
+        margin-top: auto; /* コンテンツの下にボタンを配置 */
+        padding: 10px 20px;
+        font-size: 16px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button#conversionButton:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ページのコンテンツ -->
+    <div>
+      <h1>Conversion Page</h1>
+      <p>
+        このページでは、ボタンをクリックするとコンバージョンページへリダイレクトされます。
+      </p>
+    </div>
+
+    <!-- コンバージョンボタン（ページの下部に配置） -->
+    <button id="conversionButton">コンバージョンページへ</button>
+
+    <script>
+      // ページが読み込まれた時点でmsclkidを取得して保存
+      // このロジックはクライアントの要件に応じて変更可能（例: 別のタイミングでmsclkidを取得する、特定の条件下でのみ取得するなど）
+      window.addEventListener("DOMContentLoaded", function () {
+        // _uetmsclkidの値を取得し、storedMsclkidに保存
+        storedMsclkid = getMsclkid("_uetmsclkid");
+
+        // storedMsclkidの値をコンソールに出力してデバッグ
+        console.log("Stored msclkid after DOMContentLoaded: ", storedMsclkid);
+      });
+
+      // クッキーから_msclkidを取得する関数
+      function getMsclkid(name) {
+        name += "="; // Add '=' to the cookie name to search for it
+        var cookies = document.cookie.split(/;\s*/); // Split cookies into an array
+
+        for (var i = cookies.length - 1; i >= 0; i--) {
+          if (!cookies[i].indexOf(name)) {
+            var value = cookies[i].replace(name, "");
+            // Remove the '_uet' prefix from the value, if it exists
+            value = value.replace(/^_uet/, ""); // Use replace to remove '_uet' at the start of the string
+            console.log("msclkid extracted: ", value);
+            return value;
+          }
+        }
+        console.log("msclkid not found in cookies");
+        return null;
+      }
+
+      function readCookie(name) {
+        name += "=";
+
+        for (
+          var ca = document.cookie.split(/;\s*/), i = ca.length - 1;
+          i >= 0;
+          i--
+        )
+          if (!ca[i].indexOf(name)) return ca[i].replace(name, "");
+      }
+
+      // msclkidをURLに追加し、リダイレクトする関数
+      function appendMsclkidToUrl() {
+        if (storedMsclkid) {
+          // コンバージョンページのURLを指定（実際のURLに変更すること）
+          var conversionPageUrl = "/conversion_page.html";
+
+          // URLにmsclkidパラメータを追加
+          var finalUrl =
+            conversionPageUrl + "?msclkid=" + encodeURIComponent(storedMsclkid);
+
+          // 最終的なURLをコンソールに表示してデバッグ
+          console.log("Redirecting to: ", finalUrl);
+
+          // msclkidを含むURLにリダイレクト
+          window.location.href = finalUrl;
+        } else {
+          console.log("No msclkid to append.");
+        }
+      }
+
+      // ボタンがクリックされた時に実行するイベントリスナーを追加
+      document
+        .getElementById("conversionButton")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // 通常のリンク動作を一時停止
+          appendMsclkidToUrl(); // msclkidをURLに追加してリダイレクトする関数を呼び出す
+        });
+    </script>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NC6J7J52"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  </body>
+</html>

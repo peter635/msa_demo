@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Normal Page</title>
+    <link rel="stylesheet" href="styles.css" />
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NC6J7J52");
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body>
+    <div class="container">
+      <!-- 1st Element: Header Text -->
+      <h1>変数収益を計測しない場合</h1>
+
+      <!-- 2nd Element: Red Button -->
+      <button
+        class="red-button"
+        onclick="window.location.href='thanks_normal.html'"
+      >
+        車の試乗をご予約
+      </button>
+
+      <!-- 3rd Element: Header Text -->
+      <h1>変数収益を計測する場合</h1>
+
+      <!-- 4th Element: Blue Button -->
+      <button
+        class="blue-button"
+        onclick="goToPage('thanks_purchase.html', 2990)"
+      >
+        2990円のTシャツをご購入
+      </button>
+      
+      
+      <p id="textB"></p>
+
+
+      <!-- 5th Element: Yellow Button -->
+      <button
+        class="yellow-button"
+        onclick="goToPage('thanks_purchase.html', 7990)"
+      >
+        7990円のジーンズをご購入
+      </button>
+    </div>
+
+
+    <script>
+        function goToPage(page, revenue) {
+          // Redirect to the thanks page and pass the revenue value in the URL
+          window.location.href = `${page}?revenue=${revenue}`;
+        }
+      </script>
+
+
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NC6J7J52"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  </body>
+</html>

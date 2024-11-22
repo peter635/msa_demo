@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SPA サンプルページ</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #d3d3d3; /* Light grey background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      #content,
+      #formContent,
+      #thankYou {
+        text-align: center;
+      }
+      button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: blue; /* Default button background color to blue */
+        color: white; /* Text color white */
+        border: none;
+        border-radius: 5px;
+      }
+      button.red {
+        background-color: red; /* Red button */
+      }
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      label {
+        margin-bottom: 10px;
+      }
+      select,
+      input {
+        margin-bottom: 20px;
+        padding: 10px;
+        font-size: 16px;
+      }
+    </style>
+    <script>
+      function sendGTMEvent(eventName, additionalData = {}) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: eventName,
+          ...additionalData,
+        });
+        console.log(`GTM Event Sent: ${eventName}`, additionalData);
+      }
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NC6J7J52");
+    </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body>
+    <!-- Initial Content -->
+    <div id="content">
+      <h1>SPA サンプルページ</h1>
+      <button id="showFormButton">フォームを入力</button>
+    </div>
+
+    <!-- Form Content (hidden initially) -->
+    <div id="formContent" style="display: none">
+      <form id="simForm">
+        <label for="simPlan">SIMプランを選択してください:</label>
+        <select id="simPlan" name="simPlan">
+          <option value="20G">20GB プラン</option>
+          <option value="50G">50GB プラン</option>
+        </select>
+        <label for="name">名前:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          required
+          placeholder="名前を入力してください"
+          value="田中 太郎"
+        />
+        <label for="email">メールアドレス:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="メールアドレスを入力してください"
+          value="tanakataro@sample.com"
+        />
+        <button type="submit">申請</button>
+      </form>
+    </div>
+
+    <!-- Thank You Message (hidden initially) -->
+    <div id="thankYou" style="display: none">
+      <h1>ありがとうございました。</h1>
+      <button id="backToTopButton" class="red">トップページに戻る</button>
+    </div>
+
+    <script>
+      // Get the elements
+      const contentDiv = document.getElementById("content");
+      const formDiv = document.getElementById("formContent");
+      const thankYouDiv = document.getElementById("thankYou");
+      const showFormButton = document.getElementById("showFormButton");
+      const simForm = document.getElementById("simForm");
+      const backToTopButton = document.getElementById("backToTopButton");
+
+      // Show form when "フォームを入力" button is clicked
+      showFormButton.addEventListener("click", function () {
+        contentDiv.style.display = "none"; // Hide the initial content
+        formDiv.style.display = "block"; // Show the form
+      });
+
+      // Handle form submission
+      simForm.addEventListener("submit", function (event) {
+        sendGTMEvent("spa_submit_form", {
+          action: "submit_lead_form",
+          lable: "new_user",
+          category: "mobile"
+        });
+
+        event.preventDefault(); // Prevent the form from submitting in the traditional way
+
+        // Clear the form and show thank you message
+        formDiv.style.display = "none"; // Hide the form
+        thankYouDiv.style.display = "block"; // Show the thank you message
+      });
+
+      // Redirect to the main page when "トップページに戻る" (Back to Top) button is clicked
+      backToTopButton.addEventListener("click", function () {
+        window.location.href = "mainpage.html"; // Redirect to mainpage.html
+      });
+    </script>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-NC6J7J52"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+  </body>
+</html>

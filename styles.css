@@ -1,0 +1,95 @@
+/* General reset for margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set the background color to light fashion grey */
+body, html {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center elements vertically and horizontally */
+    background-color: #b0b0b0; /* Slightly darker grey */
+    padding-top: 50px; /* Add some space from the top of the page */
+}
+
+/* Container for the content */
+.container {
+    text-align: center;
+    display: flex;
+    flex-direction: column; /* Ensure elements are arranged vertically */
+    align-items: center; /* Align elements in the center horizontally */
+}
+
+/* Header font size for the text elements */
+h1 {
+    font-size: 2em;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Button container for vertical arrangement */
+.button-container {
+    display: flex;
+    flex-direction: column; /* Arrange buttons vertically */
+    gap: 20px; /* Space between buttons */
+    align-items: center; /* Center buttons horizontally */
+}
+
+/* Button styling */
+button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    margin: 20px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Red button styling */
+.red-button {
+    background-color: red;
+    color: white;
+}
+
+.red-button:hover {
+    background-color: darkred;
+}
+
+/* Blue button styling */
+.blue-button {
+    background-color: blue;
+    color: white;
+}
+
+.blue-button:hover {
+    background-color: darkblue;
+}
+
+/* Yellow button styling */
+.yellow-button {
+    background-color: yellow;
+    color: black;
+}
+
+.yellow-button:hover {
+    background-color: gold;
+}
+
+/* Fade-in animation */
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}

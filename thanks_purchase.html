@@ -20,7 +20,7 @@
       document.addEventListener('DOMContentLoaded', function() {
         const message = revenue == 0
           ? 'ご予約ありがとうございます'
-          : `${revenue}円 ご購入ありがとうございます (New URL)`;
+          : `${revenue}円 購入完了`;
         document.getElementById('purchase-confirmation').innerText = message;
       });
     </script>
@@ -45,6 +45,8 @@
     <div class="container">
       <h1 id="purchase-confirmation" class="large-text"></h1>
 
+      <!-- <h1　style="color: yellow;">（基本タグ　と　変数収益計測タグ）</h1> -->
+      <h1 style="color: yellow;">（基本タグ　と　変数収益計測タグ）</h1>
       <!-- Return Button -->
       <div class="button-container">
         <button id="backToTopButton" class="red-button">トップページに戻る</button>

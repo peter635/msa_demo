@@ -10,7 +10,9 @@
   <body>
     <div class="container">
       <!-- Title at the top center -->
-      <h1>MSA UET DEMO Page</h1>
+      <h1>UET デモサイト</h1>
+
+      <h2>ページURL内の文字列で計測できる</h1>
 
       <!-- Buttons in the middle -->
       <div class="button-container">
@@ -18,14 +20,52 @@
         <button
           class="normal-html"
           onclick="window.location.href='normal_page.html'">
-          Normal HTML Site
+          変数収益を計測しない
         </button>
 
-        <!-- SPA site button can remain as is -->
-        <button class="spa-site" onclick="window.location.href='spa_sample_page.html'">
-          SPA Site
+        <button
+          class="normal-html"
+          onclick="window.location.href='normal_page_revenue.html'">
+          変数収益を計測する
         </button>
+
+
+
+        <!-- SPA site button can remain as is -->
+        <!-- <button class="spa-site" onclick="window.location.href='spa_sample_page.html'">
+          ページURL内の文字列で計測できないデモページ
+        </button> -->
       </div>
+
+
+
+
+      <h2>ページURL内の文字列で計測できない</h1>
+
+      <!-- Buttons in the middle -->
+      <div class="button-container">
+        <!-- Link to normal_page.html when clicking the green button -->
+        <button
+          class="normal-html"
+          onclick="window.location.href='sample.html'">
+          変数収益を計測しない
+        </button>
+
+        <button
+          class="normal-html"
+          onclick="window.location.href='sample_revenue.html'">
+          変数収益を計測する
+        </button>
+
+
+
+        <!-- SPA site button can remain as is -->
+        <!-- <button class="spa-site" onclick="window.location.href='spa_sample_page.html'">
+          ページURL内の文字列で計測できないデモページ
+        </button> -->
+      </div>
+
+
     </div>
   </body>
 </html>

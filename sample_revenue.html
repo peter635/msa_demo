@@ -60,6 +60,11 @@
         font-size: 20px;
         margin-top: 20px;
       }
+
+      .text1 {
+        font-size: 20px;
+        margin-top: 20px;
+      }
     </style>
 
     <script>
@@ -90,13 +95,13 @@
         console.log(`GTM Event Sent: ${eventName}`, dataToSend);
       }
 
-      function handleRedClick() {
-        sendGTMEvent("spa_drive", {
-          buttonColor: "red",
-          action: "予約",
-        });
-        showMessage("ご予約ありがとうございます", "red");
-      }
+      // function handleRedClick() {
+      //   sendGTMEvent("spa_drive", {
+      //     buttonColor: "red",
+      //     action: "予約",
+      //   });
+      //   showMessage("ご予約ありがとうございます", "red");
+      // }
 
       function handleBlueClick() {
         sendGTMEvent("spa_purchase", {
@@ -106,7 +111,7 @@
           category: "shopping",
           price: 2990,
         });
-        showMessage("2990円 Tシャツ ご購入ありがとうございます", "blue");
+        showMessage("2990円 Tシャツ ご購入ありがとうございます ", "blue");
       }
 
       function handleYellowClick() {
@@ -123,21 +128,31 @@
           phone: "07012345678",
         });
 
-        showMessage(
-          "7990円 ジーンズ ご購入ありがとうございます (+拡張データ)",
-          "yellow"
-        );
+        showMessage("7990円 ジーンズ ご購入ありがとうございます", "yellow");
       }
 
       function showMessage(message, color) {
+        // 清除现有的 "text" 元素
         const existingMessage = document.querySelector(".text");
         if (existingMessage) existingMessage.remove();
 
+        // 创建新的 "text" 元素并添加到页面
         const text = document.createElement("div");
         text.classList.add("text");
         text.style.color = color;
         text.textContent = message;
         document.body.appendChild(text);
+
+        // 清除现有的 "text1" 元素
+        const existingMessage1 = document.querySelector(".text1"); // 使用正确的类名
+        if (existingMessage1) existingMessage1.remove();
+
+        // 创建新的 "text1" 元素并添加到页面
+        const text1 = document.createElement("div");
+        text1.classList.add("text1"); // 给 text1 添加不同的类名
+        text1.style.color = color;
+        text1.textContent = "(基本タグ　＋　カスタムイベント)";
+        document.body.appendChild(text1);
       }
 
       function arrayBufferToHex(buffer) {
@@ -165,7 +180,7 @@
       class="button button-blue"
       onclick="handleBlueClick()"
     >
-      2990円のTシャツをご購入
+      2990円　Tシャツをご購入
     </button>
 
     <button
@@ -174,7 +189,7 @@
       style="background-color: yellow; color: black"
       onclick="handleYellowClick()"
     >
-      7990円のジーンズをご購入 (拡張データ)
+      7990円 ズボンをご購入
     </button>
 
     <button id="backToTopButton" class="red">トップページに戻る</button>

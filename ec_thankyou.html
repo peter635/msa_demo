@@ -42,6 +42,17 @@
       }
     </style>
 
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get("product");
+      // Push the data into the GTM data layer
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        productid: productId, // Array format for product IDs
+        pagetype: "purchase",
+      });
+    </script>
+
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
@@ -69,8 +80,8 @@
     <!-- Dynamic Product ID Data Layer -->
     <script>
       // Get product ID from URL query parameters
-      const urlParams = new URLSearchParams(window.location.search);
-      const productId = urlParams.get("product");
+      // const urlParams = new URLSearchParams(window.location.search);
+      // const productId = urlParams.get("product");
 
       // Select the thank you message container
       const messageContainer = document.getElementById("thank-you-message");
@@ -88,11 +99,11 @@
       }
 
       // Dynamic Data Layer for the purchase
-      window.uetq = window.uetq || [];
-      window.uetq.push("event", "", {
-        ecomm_prodid: [productId], // Dynamically add the chosen product ID
-        ecomm_pagetype: "purchase", // Set pagetype to purchase
-      });
+      // window.uetq = window.uetq || [];
+      // window.uetq.push("event", "", {
+      //   ecomm_prodid: [productId], // Dynamically add the chosen product ID
+      //   ecomm_pagetype: "purchase", // Set pagetype to purchase
+      // });
     </script>
     <!-- Google Tag Manager (noscript) -->
     <noscript

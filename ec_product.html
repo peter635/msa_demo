@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>商品一覧ページ</title>
+
+    <script>
+      // Example product ID for the product being viewed (you can dynamically set this)
+      const productIdArray = ["id1", "id2", "id3"]; // Replace "id1" with the actual product ID dynamically
+
+      // Push the data into the GTM data layer
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        productid: productIdArray, // Array format for product IDs
+      });
+    </script>
+
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -79,13 +91,13 @@
     <h1>商品一覧ページ</h1>
 
     <!-- Add your dynamic product IDs in the data layer -->
-    <script>
+    <!-- <script>
       window.uetq = window.uetq || [];
       window.uetq.push("event", "", {
         ecomm_prodid: ["id1", "id2", "id3"],
         ecomm_pagetype: "product",
       });
-    </script>
+    </script> -->
 
     <div class="product-list">
       <div class="product" id="id1">
@@ -119,7 +131,7 @@
 
     <script>
       function redirectToCart(productId) {
-        window.location.href = "cart.html?product=" + productId;
+        window.location.href = "ec_cart.html?product=" + productId;
       }
     </script>
 

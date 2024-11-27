@@ -1,0 +1,4 @@
+id	title	description	image_link	link	price	shipping
+id1	product1	product1 description	https://msademo.netlify.app/img/img1.jpeg	https://msademo.netlify.app/normal_page_revenue.html	1000	0
+id2	product2	product2 description	https://msademo.netlify.app/img/img2.jpeg	https://msademo.netlify.app/normal_page_revenue.html	2000	0
+id3	product3	product2 description	https://msademo.netlify.app/img/img3.jpeg	https://msademo.netlify.app/normal_page_revenue.html	3000	0

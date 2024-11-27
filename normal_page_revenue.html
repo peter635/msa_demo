@@ -22,11 +22,19 @@
     <!-- End Google Tag Manager -->
   </head>
   <body>
-    <div class="container">
+    <!-- Add your dynamic product IDs in the data layer -->
+    <script>
+      window.uetq = window.uetq || [];
+      window.uetq.push("event", "", {
+        ecomm_prodid: ["id1", "id2", "id3"],
+        ecomm_pagetype: "product",
+      });
+    </script>
 
+    <div class="container">
       <!-- 1st Element: Header Text -->
-      <h1 >商品　ページ</h1>
-      <h1 style="color: yellow;">（基本タグ）</h1>
+      <h1>商品　ページ</h1>
+      <h1 style="color: yellow">（基本タグ）</h1>
 
       <!-- 1st Element: Header Text -->
       <!-- <h1>変数収益ない</h1> -->
@@ -47,31 +55,26 @@
         class="red-button"
         onclick="goToPage('thanks_purchase.html', 2990)"
       >
-      Tシャツを購入（2990円）
+        Tシャツを購入（2990円）
       </button>
-      
-      
-      <p id="textB"></p>
 
+      <p id="textB"></p>
 
       <!-- 5th Element: Yellow Button -->
       <button
         class="red-button"
         onclick="goToPage('thanks_purchase.html', 7990)"
       >
-      ズボンを購入（7990円）
+        ズボンを購入（7990円）
       </button>
     </div>
 
-
     <script>
-        function goToPage(page, revenue) {
-          // Redirect to the thanks page and pass the revenue value in the URL
-          window.location.href = `${page}?revenue=${revenue}`;
-        }
-      </script>
-
-
+      function goToPage(page, revenue) {
+        // Redirect to the thanks page and pass the revenue value in the URL
+        window.location.href = `${page}?revenue=${revenue}`;
+      }
+    </script>
 
     <!-- Google Tag Manager (noscript) -->
     <noscript

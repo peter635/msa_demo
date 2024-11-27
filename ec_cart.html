@@ -54,6 +54,17 @@
       }
     </style>
 
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get("product");
+      // Push the data into the GTM data layer
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        productid: productId, // Array format for product IDs
+        pagetype: "cart",
+      });
+    </script>
+
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
@@ -79,8 +90,8 @@
     <!-- Dynamic Product ID Data Layer -->
     <script>
       // Get product ID from URL query parameters
-      const urlParams = new URLSearchParams(window.location.search);
-      const productId = urlParams.get("product");
+      // const urlParams = new URLSearchParams(window.location.search);
+      // const productId = urlParams.get("product");
 
       // Product data
       const products = {
@@ -120,11 +131,13 @@
       }
 
       // Dynamic Data Layer for the selected product
-      window.uetq = window.uetq || [];
-      window.uetq.push("event", "", {
-        ecomm_prodid: [productId], // Dynamically add the chosen product ID
-        ecomm_pagetype: "cart",
-      });
+      // window.uetq = window.uetq || [];
+      // window.uetq.push("event", "", {
+      //   ecomm_prodid: [productId], // Dynamically add the chosen product ID
+      //   ecomm_pagetype: "cart",
+      // });
+
+
     </script>
 
     <!-- Google Tag Manager (noscript) -->

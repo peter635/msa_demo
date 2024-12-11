@@ -15,21 +15,21 @@
         (window, document, "script", "//bat.bing.com/bat.js", "uetq");
     </script>
 
-    <script>　 //基本タグ２
+    <script>  //基本タグ２
         ...
         var o={ti:"24680"};
         ...
         (window, document, "script", "//bat.bing.com/bat.js", "uetq");
     </script>
 
-    <script>　//イベントタグ１
+    <script> /イベントタグ１
      window.uetq = window.uetq || [];
      window.uetq.push('event', 'purchase', {"revenue_value":990,"currency":"JPY"});
     </script>
 
-    <script>　//イベントタグ２
+    <script> //イベントタグ２
      window.uetq = window.uetq || [];
-     window.uetq.push('event', 'purchase', {"revenue_value":990,"currency":"JPY"});
+     window.uetq.push('event', 'sumbit_form');
     </script>
 
 
@@ -43,6 +43,28 @@
         (window, document, "script", "//bat.bing.com/bat.js", "uetq");
     </script>
 
+    <script>  //基本タグ２
+        ...
+        var o={ti:"24680"};
+        ...
+        (window, document, "script", "//bat.bing.com/bat.js", "uetq_agencya");
+    </script>
+
+    <script> //カスタムイベントタグ 1
+     window.uetq = window.uetq || [];
+     window.uetq.push('event', 'purchase', {"revenue_value":990,"currency":"JPY"});
+    </script>
+
+    <script> //カスタムイベントタグ 2
+     window.uetq_agencya = window.uetq_agencya || [];
+     window.uetq_agencya.push('event', 'sumbit_form');
+    </script>
+
+
+
+
+
+
     <script>　 //基本タグ２
         ...
         var o={ti:"24680"};
@@ -50,10 +72,7 @@
         (window, document, "script", "//bat.bing.com/bat.js", "uetq_adtech");
     </script>
 
-    <script>　//イベントタグ１
-     window.uetq = window.uetq || [];
-     window.uetq.push('event', 'purchase', {"revenue_value":990,"currency":"JPY"});
-    </script>
+
 
     <script>　//イベントタグ２
      window.uetq_adtech = window.uetq_adtech || [];

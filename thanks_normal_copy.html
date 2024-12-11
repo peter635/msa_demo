@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanks - Normal</title>
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css" />
+
+    <script>
+      (function (w, d, t, r, u) {
+        var f, n, i;
+        (w[u] = w[u] || []),
+          (f = function () {
+            var o = { ti: "97155318", enableAutoSpaTracking: true };
+            (o.q = w[u]), (w[u] = new UET(o)), w[u].push("pageLoad");
+          }),
+          (n = d.createElement(t)),
+          (n.src = r),
+          (n.async = 1),
+          (n.onload = n.onreadystatechange =
+            function () {
+              var s = this.readyState;
+              (s && s !== "loaded" && s !== "complete") ||
+                (f(), (n.onload = n.onreadystatechange = null));
+            }),
+          (i = d.getElementsByTagName(t)[0]),
+          i.parentNode.insertBefore(n, i);
+      })(window, document, "script", "//bat.bing.com/bat.js", "uetq");
+    </script>
+
+    <script>
+      window.uetq = window.uetq || [];
+      window.uetq.push("consent", "default", {
+        ad_storage: "denied",
+      });
+    </script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>ご予約ありがとうございます</h1>
+      <h1 style="color: yellow">（基本タグ）</h1>
+
+      <div id="thankYou">
+        <button id="backToTopButton" class="red-button">
+          トップページに戻る
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // Get the button element
+      const backToTopButton = document.getElementById("backToTopButton");
+
+      // Add click event listener to redirect to the homepage
+      backToTopButton.addEventListener("click", function () {
+        // Redirect to the homepage (assuming your main page is 'mainpage.html')
+        window.location.href = "mainpage.html"; // Adjust this path if necessary
+      });
+    </script>
+  </body>
+</html>

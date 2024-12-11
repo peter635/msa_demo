@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Ads Image Tag Demo Page</title>
+    <style>
+        .frame {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        #submitButton {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Microsoft Ads Image Tag Demo Page</h1>
+
+    <!-- Page Load Event Details Frame / ページロードイベントの詳細フレーム -->
+    <div class="frame">
+        <div class="subtitle">pageload event details / ページロードイベントの詳細</div>
+        <div id="params"></div> <!-- Container to display parameters / パラメータを表示するためのコンテナ -->
+    </div>
+
+    <!-- Submit Button / フォーム送信ボタン -->
+    <button id="submitButton">submit form / フォーム申請ボタン</button>
+
+    <!-- Submit Form Event Details Frame / フォーム送信イベントの詳細フレーム -->
+    <div class="frame">
+        <div class="subtitle">submit form event details / フォーム送信イベントの詳細</div>
+        <div id="submitParams"></div> <!-- Container to display parameters for submit form event / フォーム送信イベントのパラメータを表示するためのコンテナ -->
+    </div>
+
+    <script>
+        // Function to generate a unique MID (UUID format) / ユニークなMIDを生成する関数（UUID形式）
+        this._S4 = function () {
+            return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+        };
+        this.getGuid = function () {
+            var guid =
+                this._S4() +
+                this._S4() +
+                "-" +
+                this._S4() +
+                "-" +
+                this._S4() +
+                "-" +
+                this._S4() +
+                "-" +
+                this._S4() +
+                this._S4() +
+                this._S4();
+            return guid; // Return the generated GUID / 生成したGUIDを返す
+        };
+
+        // Function to set a cookie / クッキーを設定する関数
+        function setCookie(name, value, days) {
+            var date = new Date();
+            date.setTime(date.getTime() + days * 864e5);  // Set expiry time / 有効期限を設定
+            var expires = "; expires=" + date.toGMTString();
+            document.cookie = name + "=" + value + expires; // Save cookie / クッキーを保存
+        }
+
+        // Function to get query parameters from the URL / URLからクエリパラメータを取得する関数
+        function getParam(p) {
+            var match = RegExp("[?&]" + p + "=([^&]*)").exec(window.location.search);
+            return match && decodeURIComponent(match[1].replace(/\+/g, " "));
+        }
+
+        // Generate MID (same for all events) / MIDを生成（すべてのイベントで同じMID）
+        window.mid = this.getGuid();
+
+        // Retrieve msclkid from URL or cookie / URLまたはクッキーからmsclkidを取得
+        var msclkid = getParam("msclkid");
+        if (msclkid) {
+            setCookie("_uetmsclkid", msclkid, 90);  // Save msclkid in cookie / msclkidをクッキーに保存
+        } else {
+            msclkid = getCookie("_uetmsclkid");  // Retrieve from cookie if not found in URL / URLにmsclkidがなければクッキーから取得
+        }
+
+        // Function to get a cookie value / クッキーの値を取得する関数
+        function getCookie(name) {
+            var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? match[2] : null;  // Return cookie value or null if not found / クッキーの値を返す（見つからない場合はnull）
+        }
+
+        // Function to generate a new RN value / 新しいRN値を生成する関数
+        function generateRN() {
+            return Math.floor(Math.random() * 1000000); // Random number for RN / RNのランダムな数値
+        }
+
+        // Create the image tag for page load event / ページロードイベントのための画像タグを作成
+        function createImageTag() {
+            var rn = generateRN(); // Generate new RN for page load / ページロード用に新しいRNを生成
+            var img = document.createElement("img");
+            img.src = "//bat.bing.com/action/0?ti=1234567&ver=2&evt=pageLoad&mid=" + window.mid + "&msclkid=" + msclkid + "&rn=" + rn + "&p=http%3A%2F%2Fwww.example.com";
+            img.width = 1;
+            img.height = 1;
+            img.style.display = "none";  // Image hidden for tracking purposes / 追跡のため画像は非表示に設定
+
+            // Append the image to the body / 画像をbodyに追加
+            document.body.appendChild(img);
+
+            // Display parameters and image tag request on the page / パラメータと画像タグのリクエストをページに表示
+            var paramsContent = `
+                <strong>ti:</strong> 1234567 (please change this into the actual tag id) <br>
+                <strong>ver:</strong> 2 <br>
+                <strong>evt:</strong> pageLoad <br>
+                <strong>mid:</strong> ${window.mid} <br>
+                <strong>msclkid:</strong> ${msclkid} <br>
+                <strong>rn:</strong> ${rn} <br>
+                <strong>p:</strong> http://www.example.com (change this into actual page url) <br><br>
+                <strong>Complete image tag:</strong> <br>
+                <code>&lt;img src="//bat.bing.com/action/0?ti=1234567&amp;ver=2&amp;evt=pageLoad&amp;mid=${window.mid}&amp;msclkid=${msclkid}&amp;rn=${rn}&amp;p=http%3A%2F%2Fwww.example.com"&gt;</code>
+            `;
+            document.getElementById('params').innerHTML = paramsContent;
+        }
+
+        // Create the image tag for custom submit form event / カスタム送信フォームイベント用の画像タグを作成
+        function createSubmitEventTag() {
+            var rn = generateRN(); // Generate new RN for submit form / 送信フォーム用に新しいRNを生成
+            var img = document.createElement("img");
+            img.src = "//bat.bing.com/action/0?ti=1234567&ver=2&evt=submit_form&mid=" + window.mid + "&msclkid=" + msclkid + "&rn=" + rn + "&p=http%3A%2F%2Fwww.example.com";
+            img.width = 1;
+            img.height = 1;
+            img.style.display = "none";  // Image hidden for tracking purposes / 追跡のため画像は非表示に設定
+
+            // Append the image to the body / 画像をbodyに追加
+            document.body.appendChild(img);
+
+            // Display parameters and image tag request under submit button / 送信ボタンの下にパラメータと画像タグのリクエストを表示
+            var submitParamsContent = `
+                <strong>ti:</strong> 1234567 (please change this into the actual tag id) <br>
+                <strong>ver:</strong> 2 <br>
+                <strong>evt:</strong> submit_form <br>
+                <strong>mid:</strong> ${window.mid} <br>
+                <strong>msclkid:</strong> ${msclkid} <br>
+                <strong>rn:</strong> ${rn} <br>
+                <strong>p:</strong> http://www.example.com (change this into actual page url) <br><br>
+                <strong>Complete image tag:</strong> <br>
+                <code>&lt;img src="//bat.bing.com/action/0?ti=1234567&amp;ver=2&amp;evt=submit_form&amp;mid=${window.mid}&amp;msclkid=${msclkid}&amp;rn=${rn}&amp;p=http%3A%2F%2Fwww.example.com"&gt;</code>
+            `;
+            document.getElementById('submitParams').innerHTML = submitParamsContent;
+        }
+
+        // Call the function to create the image tag and show parameters for page load / ページロードのパラメータを表示するための画像タグを作成する関数を呼び出す
+        createImageTag();
+
+        // Event listener for the submit button / 送信ボタンのイベントリスナー
+        document.getElementById("submitButton").addEventListener("click", function () {
+            createSubmitEventTag();  // Create image tag when the submit button is clicked / 送信ボタンがクリックされた時に画像タグを作成
+        });
+    </script>
+</body>
+</html>

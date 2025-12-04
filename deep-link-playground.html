@@ -1,409 +1,399 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <title>Deep Link Playground</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    :root {
-      --bg: #faf5ef;
-      --card-bg: #ffffff;
-      --accent: #ffb347;
-      --accent-strong: #ff8c42;
-      --text-main: #333333;
-      --text-sub: #666666;
-      --border-soft: #e5e5e5;
-      --shadow-soft: 0 8px 18px rgba(0, 0, 0, 0.06);
-      --radius-lg: 18px;
-      --radius-sm: 10px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
-        sans-serif;
-      background: var(--bg);
-      color: var(--text-main);
-    }
-
-    .page {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 24px 16px 40px;
-    }
-
-    .header {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin-bottom: 20px;
-    }
-
-    .title-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .title-row h1 {
-      font-size: 1.6rem;
-      margin: 0;
-    }
-
-    .badge {
-      font-size: 0.75rem;
-      padding: 4px 10px;
-      border-radius: 999px;
-      background: #ffe9c7;
-      color: #8a4b00;
-      font-weight: 600;
-    }
-
-    .header p {
-      margin: 0;
-      font-size: 0.9rem;
-      color: var(--text-sub);
-    }
-
-    .note {
-      margin-top: 6px;
-      font-size: 0.8rem;
-      color: var(--text-sub);
-    }
-
-    .apps-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    @media (min-width: 780px) {
-      .apps-grid {
-        flex-direction: row;
-        align-items: stretch;
+  <head>
+    <meta charset="UTF-8" />
+    <title>Deep Link Playground</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        --bg: #faf5ef;
+        --card-bg: #ffffff;
+        --accent: #ffb347;
+        --accent-strong: #ff8c42;
+        --text-main: #333333;
+        --text-sub: #666666;
+        --border-soft: #e5e5e5;
+        --shadow-soft: 0 8px 18px rgba(0, 0, 0, 0.06);
+        --radius-lg: 18px;
+        --radius-sm: 10px;
       }
-    }
 
-    .app-card {
-      flex: 1;
-      background: var(--card-bg);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-soft);
-      padding: 16px 16px 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      border: 1px solid rgba(0, 0, 0, 0.02);
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    .app-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding-bottom: 6px;
-      border-bottom: 1px dashed var(--border-soft);
-    }
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text-main);
+      }
 
-    .app-icon {
-      font-size: 1.7rem;
-    }
+      .page {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 24px 16px 40px;
+      }
 
-    .app-main {
-      font-weight: 600;
-      font-size: 1.05rem;
-    }
+      .header {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
 
-    .app-sub {
-      font-size: 0.8rem;
-      color: var(--text-sub);
-    }
+      .title-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-    .link-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 4px;
-    }
+      .title-row h1 {
+        font-size: 1.6rem;
+        margin: 0;
+      }
 
-    .link-item {
-      border-radius: var(--radius-sm);
-      padding: 10px 10px 10px;
-      border: 1px solid var(--border-soft);
-      background: #fffaf3;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+      .badge {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background: #ffe9c7;
+        color: #8a4b00;
+        font-weight: 600;
+      }
 
-    .link-top-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
+      .header p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--text-sub);
+      }
 
-    .link-label {
-      font-size: 0.88rem;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+      .note {
+        margin-top: 6px;
+        font-size: 0.8rem;
+        color: var(--text-sub);
+      }
 
-    .pill {
-      font-size: 0.7rem;
-      padding: 2px 8px;
-      border-radius: 999px;
-      background: #ffe0b8;
-      color: #8a4b00;
-      font-weight: 600;
-    }
+      .apps-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
 
-    .open-btn {
-      padding: 6px 12px;
-      border-radius: 999px;
-      border: none;
-      font-size: 0.8rem;
-      font-weight: 600;
-      cursor: pointer;
-      background: var(--accent);
-      color: #3a2300;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-      transition: transform 0.08s ease, box-shadow 0.08s ease,
-        background 0.12s ease;
-    }
+      @media (min-width: 780px) {
+        .apps-grid {
+          flex-direction: row;
+          align-items: stretch;
+        }
+      }
 
-    .open-btn:hover {
-      background: var(--accent-strong);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
-    }
+      .app-card {
+        flex: 1;
+        background: var(--card-bg);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-soft);
+        padding: 16px 16px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.02);
+      }
 
-    .open-btn:active {
-      transform: translateY(0);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-    }
+      .app-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-bottom: 6px;
+        border-bottom: 1px dashed var(--border-soft);
+      }
 
-    .open-btn span.icon {
-      font-size: 1rem;
-    }
+      .app-icon {
+        font-size: 1.7rem;
+      }
 
-    .url-line {
-      font-family: "SF Mono", Menlo, Consolas, monospace;
-      font-size: 0.78rem;
-      color: #8a4b00;
-      background: #fff4e3;
-      padding: 4px 6px;
-      border-radius: 6px;
-      white-space: nowrap;
-      overflow-x: auto;
-    }
+      .app-main {
+        font-weight: 600;
+        font-size: 1.05rem;
+      }
 
-    .url-line::-webkit-scrollbar {
-      height: 4px;
-    }
+      .app-sub {
+        font-size: 0.8rem;
+        color: var(--text-sub);
+      }
 
-    .url-line::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, 0.12);
-      border-radius: 999px;
-    }
+      .link-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 4px;
+      }
 
-    .footer-note {
-      margin-top: 20px;
-      font-size: 0.8rem;
-      color: var(--text-sub);
-      line-height: 1.4;
-    }
+      .link-item {
+        border-radius: var(--radius-sm);
+        padding: 10px 10px 10px;
+        border: 1px solid var(--border-soft);
+        background: #fffaf3;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
 
-    .footer-note strong {
-      color: #8a4b00;
-    }
-  </style>
-</head>
-<body>
-  <div class="page">
-    <header class="header">
-      <div class="title-row">
-        <h1>📱 TAM Coffee Session</h1>
-        <span class="badge">Deep Link Playground</span>
-      </div>
-      <p>
-        スマホでこのページを開いて、ボタンをタップして Deep Link の動きを体験してみましょう。<br />
-      </p>
-      <p class="note">
-        ※ URL テキストは「表示専用」です。実際に開くのは右側の <strong>「開く」ボタン</strong> です。
-      </p>
-    </header>
+      .link-top-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+      }
 
-    <main>
-      <section class="apps-grid">
-        <!-- LinkedIn Card -->
-        <article class="app-card">
-          <div class="app-header">
-            <div class="app-icon">💼</div>
-            <div>
-              <div class="app-main">LinkedIn Deep Link テスト</div>
-              <div class="app-sub">
-                ホーム / ゲーム / 求人検索 をアプリ or Web でどう開くか？
-              </div>
-            </div>
-          </div>
+      .link-label {
+        font-size: 0.88rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
 
-          <div class="link-list">
-            <!-- LinkedIn Home -->
-            <div class="link-item">
-              <div class="link-top-row">
-                <div class="link-label">
-                  <span>🏠 ホームを開く</span>
-                  <span class="pill">Home</span>
+      .pill {
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: #ffe0b8;
+        color: #8a4b00;
+        font-weight: 600;
+      }
+
+      .open-btn {
+        padding: 6px 12px;
+        border-radius: 999px;
+        border: none;
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        background: var(--accent);
+        color: #3a2300;
+        white-space: nowrap;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        transition: transform 0.08s ease, box-shadow 0.08s ease,
+          background 0.12s ease;
+      }
+
+      .open-btn:hover {
+        background: var(--accent-strong);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.16);
+      }
+
+      .open-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+      }
+
+      .open-btn span.icon {
+        font-size: 1rem;
+      }
+
+      .url-line {
+        font-family: "SF Mono", Menlo, Consolas, monospace;
+        font-size: 0.78rem;
+        color: #8a4b00;
+        background: #fff4e3;
+        padding: 4px 6px;
+        border-radius: 6px;
+        white-space: nowrap;
+        overflow-x: auto;
+      }
+
+      .url-line::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      .url-line::-webkit-scrollbar-thumb {
+        background-color: rgba(0, 0, 0, 0.12);
+        border-radius: 999px;
+      }
+
+      .footer-note {
+        margin-top: 20px;
+        font-size: 0.8rem;
+        color: var(--text-sub);
+        line-height: 1.4;
+      }
+
+      .footer-note strong {
+        color: #8a4b00;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <div class="title-row">
+          <h1>📱 TAM Coffee Session</h1>
+          <span class="badge">Deep Link Playground</span>
+        </div>
+        <p>
+          スマホでこのページを開いて、ボタンをタップして Deep Link
+          の動きを体験してみましょう。<br />
+        </p>
+        <p class="note">
+          ※ URL テキストは「表示専用」です。実際に開くのは右側の
+          <strong>「開く」ボタン</strong> です。
+        </p>
+      </header>
+
+      <main>
+        <section class="apps-grid">
+          <!-- LinkedIn Card -->
+          <article class="app-card">
+            <div class="app-header">
+              <div class="app-icon">💼</div>
+              <div>
+                <div class="app-main">LinkedIn Deep Link テスト</div>
+                <div class="app-sub">
+                  ホーム / ゲーム / 求人検索 をアプリ or Web でどう開くか？
                 </div>
-                <button
-                  class="open-btn"
-                  onclick="window.location.href='https://linkedin.com';"
-                >
-                  <span class="icon">🚀</span>
-                  <span>開く</span>
-                </button>
-              </div>
-              <div class="url-line">
-                https://linkedin.com
               </div>
             </div>
 
-            <!-- LinkedIn Games -->
-            <div class="link-item">
-              <div class="link-top-row">
-                <div class="link-label">
-                  <span>🎮 ゲームページを開く</span>
-                  <span class="pill">Games</span>
+            <div class="link-list">
+              <!-- LinkedIn Home -->
+              <div class="link-item">
+                <div class="link-top-row">
+                  <div class="link-label">
+                    <span>🏠 ホームを開く</span>
+                    <span class="pill">Home</span>
+                  </div>
+                  <button
+                    class="open-btn"
+                    onclick="window.location.href='https://linkedin.com';"
+                  >
+                    <span class="icon">🚀</span>
+                    <span>開く</span>
+                  </button>
                 </div>
-                <button
-                  class="open-btn"
-                  onclick="window.location.href='https://linkedin.com/games';"
-                >
-                  <span class="icon">🚀</span>
-                  <span>開く</span>
-                </button>
+                <div class="url-line">https://linkedin.com</div>
               </div>
-              <div class="url-line">
-                https://linkedin.com/games
-              </div>
-            </div>
 
-            <!-- LinkedIn Jobs Search -->
-            <div class="link-item">
-              <div class="link-top-row">
-                <div class="link-label">
-                  <span>🔍 求人検索ページを開く</span>
-                  <span class="pill">Jobs Search</span>
+              <!-- LinkedIn Games -->
+              <div class="link-item">
+                <div class="link-top-row">
+                  <div class="link-label">
+                    <span>🎮 ゲームページを開く</span>
+                    <span class="pill">Games</span>
+                  </div>
+                  <button
+                    class="open-btn"
+                    onclick="window.location.href='https://linkedin.com/games';"
+                  >
+                    <span class="icon">🚀</span>
+                    <span>開く</span>
+                  </button>
                 </div>
-                <button
-                  class="open-btn"
-                  onclick="window.location.href='https://linkedin.com/jobs/search';"
-                >
-                  <span class="icon">🚀</span>
-                  <span>開く</span>
-                </button>
+                <div class="url-line">https://linkedin.com/games</div>
               </div>
-              <div class="url-line">
-                https://linkedin.com/jobs/search
-              </div>
-            </div>
-          </div>
-        </article>
 
-        <!-- Booking Card -->
-        <article class="app-card">
-          <div class="app-header">
-            <div class="app-icon">🛫</div>
-            <div>
-              <div class="app-main">Booking.com Deep Link テスト</div>
-              <div class="app-sub">
-                ホーム / フライト（ゲーム枠） / 東京の検索結果 をテスト。
-              </div>
-            </div>
-          </div>
-
-          <div class="link-list">
-            <!-- Booking Home -->
-            <div class="link-item">
-              <div class="link-top-row">
-                <div class="link-label">
-                  <span>🏠 ホームを開く</span>
-                  <span class="pill">Home</span>
+              <!-- LinkedIn Jobs Search -->
+              <div class="link-item">
+                <div class="link-top-row">
+                  <div class="link-label">
+                    <span>🔍 求人検索ページを開く</span>
+                    <span class="pill">Jobs Search</span>
+                  </div>
+                  <button
+                    class="open-btn"
+                    onclick="window.location.href='https://linkedin.com/jobs/search';"
+                  >
+                    <span class="icon">🚀</span>
+                    <span>開く</span>
+                  </button>
                 </div>
-                <button
-                  class="open-btn"
-                  onclick="window.location.href='https://booking.com';"
-                >
-                  <span class="icon">🚀</span>
-                  <span>開く</span>
-                </button>
-              </div>
-              <div class="url-line">
-                https://booking.com
+                <div class="url-line">https://linkedin.com/jobs/search</div>
               </div>
             </div>
+          </article>
 
-            <!-- Booking Flights (ゲーム枠) -->
-            <div class="link-item">
-              <div class="link-top-row">
-                <div class="link-label">
-                  <span>✈️ フライトページを開く</span>
-                  <span class="pill">Flights</span>
+          <!-- Booking Card -->
+          <article class="app-card">
+            <div class="app-header">
+              <div class="app-icon">🛫</div>
+              <div>
+                <div class="app-main">Booking.com Deep Link テスト</div>
+                <div class="app-sub">
+                  ホーム / フライト（ゲーム枠） / 東京の検索結果 をテスト。
                 </div>
-                <button
-                  class="open-btn"
-                  onclick="window.location.href='https://booking.com/flights';"
-                >
-                  <span class="icon">🚀</span>
-                  <span>開く</span>
-                </button>
-              </div>
-              <div class="url-line">
-                https://booking.com/flights
               </div>
             </div>
 
-            <!-- Booking My Reservations (Updated as requested) -->
-            <div class="link-item">
-              <div class="link-top-row">
-                <div class="link-label">
-                  <span>📘 私の予約を見る</span>
-                  <span class="pill">My Reservations</span>
+            <div class="link-list">
+              <!-- Booking Home -->
+              <div class="link-item">
+                <div class="link-top-row">
+                  <div class="link-label">
+                    <span>🏠 ホームを開く</span>
+                    <span class="pill">Home</span>
+                  </div>
+                  <button
+                    class="open-btn"
+                    onclick="window.location.href='https://booking.com';"
+                  >
+                    <span class="icon">🚀</span>
+                    <span>開く</span>
+                  </button>
                 </div>
-                <button
-                  class="open-btn"
-                  onclick="window.location.href='https://www.booking.com/myreservations';"
-                >
-                  <span class="icon">🚀</span>
-                  <span>開く</span>
-                </button>
+                <div class="url-line">https://booking.com</div>
               </div>
-              <div class="url-line">
-                https://www.booking.com/myreservations
+
+              <!-- UPDATED: Sydney Search -->
+              <div class="link-item">
+                <div class="link-top-row">
+                  <div class="link-label">
+                    🏖️ シドニー宿泊検索 <span class="pill">Sydney</span>
+                  </div>
+                  <button
+                    class="open-btn"
+                    onclick="window.location.href='http://booking.com/Sydney';"
+                  >
+                    <span class="icon">🚀</span> 開く
+                  </button>
+                </div>
+                <div class="url-line">http://booking.com/Sydney</div>
+              </div>
+
+              <!-- Booking My Reservations (Updated as requested) -->
+              <div class="link-item">
+                <div class="link-top-row">
+                  <div class="link-label">
+                    <span>📘 私の予約を見る</span>
+                    <span class="pill">My Reservations</span>
+                  </div>
+                  <button
+                    class="open-btn"
+                    onclick="window.location.href='https://www.booking.com/myreservations';"
+                  >
+                    <span class="icon">🚀</span>
+                    <span>開く</span>
+                  </button>
+                </div>
+                <div class="url-line">
+                  https://www.booking.com/myreservations
+                </div>
               </div>
             </div>
-          </div>
-        </article>
-      </section>
+          </article>
+        </section>
 
-      <p class="footer-note">
-        💡 <strong>使い方 Tips</strong><br />
-        ・もしアプリが入っていない場合は Web にフォールバックします。<br />
-        ・このページはあくまで「体験用」なので、実際のキャンペーンでは
-        UET / msclkid / OneLink(AppsFlyer) などを組み合わせて計測します。
-      </p>
-    </main>
-  </div>
-</body>
+        <p class="footer-note">
+          💡 <strong>使い方 Tips</strong><br />
+          ・もしアプリが入っていない場合は Web にフォールバックします。<br />
+          ・このページはあくまで「体験用」なので、実際のキャンペーンでは UET /
+          msclkid / OneLink(AppsFlyer) などを組み合わせて計測します。
+        </p>
+      </main>
+    </div>
+  </body>
 </html>
